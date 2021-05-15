@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/drawerlayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#3e3e3e">
+            <LinearLayout
+                android:gravity="center"
+                android:weightSum="7"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#3f3f3f">
+                <ImageButton
+                    android:src="@drawable/menu_icon"
+                    android:id="@+id/btnOpenMenu"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:background="#3f3f3f"
+                    android:onClick="openMenu"
+                    android:padding="7dp"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="5"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/logo"
+                    android:scaleType="fitXY"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginLeft="25dp"
+                    />
+                <ImageButton
+                    android:src="@drawable/search_icon"
+                    android:id="@+id/btnSearch"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_width="0dp"
+                    android:background="#3f3f3f"
+                    android:padding="7dp"
+                    android:onClick="Search"/>
+            </LinearLayout>
+
+<!--            <ViewFlipper-->
+<!--                android:id="@+id/vfSlide"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="200dp">-->
+<!--            </ViewFlipper>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="25"
+                android:orientation="vertical">
+                <fragment
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="8"
+                    android:id="@+id/fragmentBanner"
+                    android:name="com.example.kanime.fragment.FragmentBanner"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="17"
+                    android:orientation="vertical"
+                    android:background="#3e3e3e">
+
+                    <TextView
+                        android:layout_margin="7dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mới cập nhật"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        android:textColor="#fff"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/listNew"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="7dp">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nvMenu"
+            android:layout_gravity="start"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#3f3f3f">
+                <ImageButton
+                    android:id="@+id/ibLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:src="@drawable/logo"
+                    android:scaleType="fitXY"
+                    android:onClick="goHome"
+                    android:background="?android:selectableItemBackground"/>
+                <ListView
+                    android:id="@+id/listviewMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </ListView>
+            </LinearLayout>
+        </com.google.android.material.navigation.NavigationView>
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</LinearLayout>

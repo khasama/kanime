@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="#3f3f3f">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@drawable/border_phimsearch"
+        android:orientation="horizontal"
+        android:weightSum="12"
+        android:padding="7dp">
+        <ImageView
+            android:id="@+id/ivAnhPhimSearch"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:layout_marginRight="7dp"
+            android:scaleType="fitXY"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="9">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="Kyuukyoku Shinka shita Full Dive RPG ga Genjitsu yori mo Kusoge Dattara"
+                android:textColor="#0ff"
+                android:textSize="18sp"
+                android:ellipsize="end"
+                android:id="@+id/tvTenPhimSearch"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kyuukyoku Shinka shita Full Dive RPG ga Genjitsu yori mo Kusoge Dattara"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="#fff"
+                android:id="@+id/tvTenKhacSearch"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lượt xem: "
+                android:id="@+id/tvLuotXemSearch"
+                android:textColor="#fff"
+                android:layout_marginTop="7dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
