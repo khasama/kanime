@@ -10,6 +10,8 @@ public class Url {
     public static String urlInfoEp = domain + "api/anime/infoep.php?idEp=";
     public static String urlIframe = domain + "api/anime/iframe.php?idEp=";
     public static String urlSearch = domain + "api/anime/search.php?q=";
+    public static String urlRegister = domain + "api/anime/register.php";
+    public static String urlLogin = domain + "api/anime/login.php";
 
 
     public static String GetAllEp(String idPhim, String idServer){

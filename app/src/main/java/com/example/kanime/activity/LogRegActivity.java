@@ -3,7 +3,11 @@ package com.example.kanime.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.example.kanime.R;
 import com.example.kanime.adapter.FragmentAdapter;
@@ -34,5 +38,12 @@ public class LogRegActivity extends AppCompatActivity {
     private void anhXa() {
         tabLayout = findViewById(R.id.mytablayout);
         viewPager = findViewById(R.id.myviewpager);
+    }
+
+    public void returnHome(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivities(new Intent[]{intent});
     }
 }

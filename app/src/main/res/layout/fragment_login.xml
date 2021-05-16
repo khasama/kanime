@@ -1,7 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0f0">
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:background="#dfdfdf">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:src="@drawable/logo"
+        android:scaleType="fitXY"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đăng Nhập"
+            android:textColor="#3f3f3f"
+            android:textSize="30sp"
+            android:layout_marginBottom="25dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập tên đăng nhập hoặc Email"
+            android:id="@+id/etTdn"
+            android:layout_marginBottom="15dp"
+            android:backgroundTint="#3f3f3f"
+            android:textColor="#3f3f3f"
+            android:cursorVisible="false"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập mật khẩu"
+            android:id="@+id/etMatKhau"
+            android:layout_marginBottom="15dp"
+            android:backgroundTint="#3f3f3f"
+            android:textColor="#3f3f3f"
+            android:password="true"
+            android:cursorVisible="false"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bạn đã quên mất tiêu cái mật khẩu của mình ??"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/tvQuenPass"/>
+        <ImageButton
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:src="@drawable/login_icon"
+            android:scaleType="fitXY"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:backgroundTint="#3f3f3f"
+            android:id="@+id/ibLogin"/>
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

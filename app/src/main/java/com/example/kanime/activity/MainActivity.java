@@ -80,13 +80,11 @@ public class MainActivity extends AppCompatActivity {
                         drlayout.closeDrawer(GravityCompat.START);
                         break;
                     case 1:
-//                        editor.putString("idUser", "1");
-//                        editor.commit();
                         drlayout.closeDrawer(GravityCompat.START);
                         break;
                     case 2:
-//                        editor.clear();
-//                        editor.commit();
+                        editor.clear();
+                        editor.commit();
                         drlayout.closeDrawer(GravityCompat.START);
                         break;
                     case 3:
