@@ -12,6 +12,7 @@ public class Url {
     public static String urlSearch = domain + "api/anime/search.php?q=";
     public static String urlRegister = domain + "api/anime/register.php";
     public static String urlLogin = domain + "api/anime/login.php";
+    public static String urlShowCmt = domain + "api/anime/show_cmt.php?idPhim=";
 
 
     public static String GetAllEp(String idPhim, String idServer){
@@ -25,7 +26,7 @@ public class Url {
     }
 
     public static String sendComment(String idPhim, String idUser, String cmt){
-        String url = domain+"api/anime/comment.php?idPhim="+idPhim+"&idUser="+idUser+"&cmt-"+cmt;
+        String url = domain+"api/anime/send_cmt.php?idPhim="+idPhim+"&idUser="+idUser+"&cmt-"+cmt;
         return url;
     }
 }

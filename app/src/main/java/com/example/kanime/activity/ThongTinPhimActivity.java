@@ -29,10 +29,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.kanime.R;
+import com.example.kanime.adapter.CommentAdapter;
 import com.example.kanime.adapter.EpisodeAdapter;
 import com.example.kanime.adapter.MenuLeftAdapter;
 import com.example.kanime.adapter.PhimMoiAdapter;
 import com.example.kanime.adapter.SeasonAdapter;
+import com.example.kanime.model.Comment;
 import com.example.kanime.model.Episode;
 import com.example.kanime.model.MenuLeft;
 import com.example.kanime.model.PhimMoi;
@@ -72,24 +74,23 @@ public class ThongTinPhimActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_tin_phim);
+        initPreferences();
         anhXa();
         if(CheckConnect.haveNetworkConnection(getApplicationContext())){
             GetMenuLeft();
             GetInfo();
-            initPreferences();
-            checkLogin();
         }else{
             CheckConnect.Thongbao(getApplicationContext(), "Kiểm tra lại kết nối!!!");
             finish();
         }
     }
 
-    private void checkLogin() {
+    private void checkLogin(String idPhim) {
         String savedData = sharedPreferences.getString("idUser", "");
         if(savedData.length() == 0 ){
 
         }else{
-            addComment();
+            addComment(idPhim);
         }
     }
 
@@ -154,6 +155,7 @@ public class ThongTinPhimActivity extends AppCompatActivity {
                 }
             });
             requestQueue.add(jsonArrayRequest);
+            checkLogin(idPhim);
         }
     }
 
@@ -285,11 +287,53 @@ public class ThongTinPhimActivity extends AppCompatActivity {
         startActivities(new Intent[]{intent});
     }
 
-    public void addComment() {
+    public void addComment(String idPhim) {
         View view = getLayoutInflater().inflate(R.layout.component_cmt, null);
+
+        ArrayList<Comment> arrayCmt = new ArrayList<>();
+        CommentAdapter commentAdapter = new CommentAdapter(getApplicationContext(), arrayCmt);
+        RecyclerView rvListCmt = view.findViewById(R.id.rvListCmt);
+        rvListCmt.setHasFixedSize(true);
+        rvListCmt.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
+
 
         EditText etCmt = view.findViewById(R.id.etCmt);
         ImageButton ibSendCmt = view.findViewById(R.id.ibSendCmt);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Url.urlShowCmt + idPhim, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if(response != null){
+                    String idCmt = "";
+                    String userName = "";
+                    String content = "";
+                    String date = "";
+                    String img = "";
+                    for(int i = 0; i < response.length(); i++){
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+                            idCmt = jsonObject.getString("id-cmt");
+                            userName = jsonObject.getString("user-name");
+                            content = jsonObject.getString("content");
+                            date = jsonObject.getString("date");
+                            img = jsonObject.getString("img");
+                            arrayCmt.add(new Comment(idCmt, userName, content, date, img));
+                            commentAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    rvListCmt.setAdapter(commentAdapter);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("aaaaaa", error.toString());
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
 
         ibSendCmt.setOnClickListener(new View.OnClickListener() {
             @Override
