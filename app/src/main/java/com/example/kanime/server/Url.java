@@ -23,4 +23,9 @@ public class Url {
         String url = domain+"api/anime/server.php?idPhim="+idPhim+"&Episode="+episode;
         return url;
     }
+
+    public static String sendComment(String idPhim, String idUser, String cmt){
+        String url = domain+"api/anime/comment.php?idPhim="+idPhim+"&idUser="+idUser+"&cmt-"+cmt;
+        return url;
+    }
 }

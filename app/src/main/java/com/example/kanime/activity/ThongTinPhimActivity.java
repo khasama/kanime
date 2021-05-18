@@ -8,15 +8,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -59,6 +64,10 @@ public class ThongTinPhimActivity extends AppCompatActivity {
     ArrayList<Season> arraySeason;
     SeasonAdapter seasonAdapter;
     WebView wbNoiDung;
+
+    LinearLayout llCmt;
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,10 +76,25 @@ public class ThongTinPhimActivity extends AppCompatActivity {
         if(CheckConnect.haveNetworkConnection(getApplicationContext())){
             GetMenuLeft();
             GetInfo();
+            initPreferences();
+            checkLogin();
         }else{
             CheckConnect.Thongbao(getApplicationContext(), "Kiểm tra lại kết nối!!!");
             finish();
         }
+    }
+
+    private void checkLogin() {
+        String savedData = sharedPreferences.getString("idUser", "");
+        if(savedData.length() == 0 ){
+
+        }else{
+            addComment();
+        }
+    }
+
+    private void initPreferences() {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     private void GetInfo() {
@@ -241,6 +265,8 @@ public class ThongTinPhimActivity extends AppCompatActivity {
         rvListSeason.setAdapter(seasonAdapter);
         rvListSeason.setLayoutManager(layoutManager);
         wbNoiDung = findViewById(R.id.wvNoiDung);
+
+        llCmt = findViewById(R.id.llCmt);
     }
 
     public void openMenu(View view){
@@ -257,6 +283,23 @@ public class ThongTinPhimActivity extends AppCompatActivity {
     public void Search(View view){
         Intent intent = new Intent(this, SearchActivity.class);
         startActivities(new Intent[]{intent});
+    }
+
+    public void addComment() {
+        View view = getLayoutInflater().inflate(R.layout.component_cmt, null);
+
+        EditText etCmt = view.findViewById(R.id.etCmt);
+        ImageButton ibSendCmt = view.findViewById(R.id.ibSendCmt);
+
+        ibSendCmt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String cmt = etCmt.getText().toString().trim();
+                Toast.makeText(ThongTinPhimActivity.this, cmt, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        llCmt.addView(view);
     }
 
 }
