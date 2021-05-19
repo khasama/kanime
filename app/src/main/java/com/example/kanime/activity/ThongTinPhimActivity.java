@@ -23,10 +23,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.kanime.R;
 import com.example.kanime.adapter.CommentAdapter;
@@ -49,6 +52,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ThongTinPhimActivity extends AppCompatActivity {
 
@@ -90,7 +95,7 @@ public class ThongTinPhimActivity extends AppCompatActivity {
         if(savedData.length() == 0 ){
 
         }else{
-            addComment(idPhim);
+            addComment(idPhim, savedData);
         }
     }
 
@@ -287,7 +292,9 @@ public class ThongTinPhimActivity extends AppCompatActivity {
         startActivities(new Intent[]{intent});
     }
 
-    public void addComment(String idPhim) {
+    public void addComment(String idPhim, String idUser) {
+        String idMovie = idPhim;
+        String idU = idUser;
         View view = getLayoutInflater().inflate(R.layout.component_cmt, null);
 
         ArrayList<Comment> arrayCmt = new ArrayList<>();
@@ -301,7 +308,7 @@ public class ThongTinPhimActivity extends AppCompatActivity {
         ImageButton ibSendCmt = view.findViewById(R.id.ibSendCmt);
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Url.urlShowCmt + idPhim, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Url.urlShowCmt + idMovie, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 if(response != null){
@@ -339,11 +346,45 @@ public class ThongTinPhimActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String cmt = etCmt.getText().toString().trim();
-                Toast.makeText(ThongTinPhimActivity.this, cmt, Toast.LENGTH_SHORT).show();
+                String idPhim = idMovie;
+                String idUser = idU;
+                if(!cmt.isEmpty()){
+                    sendComment(cmt, idPhim, idUser);
+                }else {
+                    Toast.makeText(ThongTinPhimActivity.this, "Vui lòng nhập đầy đủ !!!!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
         llCmt.addView(view);
+    }
+
+    public void sendComment(String cmt, String idPhim, String idUser) {
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.sendComment(idPhim, idUser, cmt), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if(response.contains("success")){
+                    llCmt.removeAllViews();
+                    addComment(idPhim, idUser);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Đã xảy ra lỗi vui lòng thử lại sau !!!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "Đã có lỗi xảy ra !!!", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> data = new HashMap<>();
+                data.put("cmt", cmt);
+                data.put("idUser", idUser);
+                data.put("idPhim", idPhim);
+                return data;
+            }
+        };
+        requestQueue.add(stringRequest);
     }
 
 }
