@@ -75,6 +75,11 @@ public class ThongTinPhimActivity extends AppCompatActivity {
     LinearLayout llCmt;
     SharedPreferences sharedPreferences;
 
+    ArrayList<Comment> arrayCmt;
+    CommentAdapter commentAdapter;
+    RecyclerView rvListCmt;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,7 +155,7 @@ public class ThongTinPhimActivity extends AppCompatActivity {
                         GetEpisode(idPhim, Server);
                         GetSeason(idPhim);
                         GetNoiDung(idPhim);
-                        Log.e("aaa", Url.urlPhim+idPhim);
+                        getComment(idPhim);
                     }
                 }
             }, new Response.ErrorListener() {
@@ -274,44 +279,20 @@ public class ThongTinPhimActivity extends AppCompatActivity {
         wbNoiDung = findViewById(R.id.wvNoiDung);
 
         llCmt = findViewById(R.id.llCmt);
-    }
-
-    public void openMenu(View view){
-        drlayout.openDrawer(GravityCompat.START);
-    }
-
-    public void goHome(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivities(new Intent[]{intent});
-    }
-
-    public void Search(View view){
-        Intent intent = new Intent(this, SearchActivity.class);
-        startActivities(new Intent[]{intent});
-    }
-
-    public void addComment(String idPhim, String idUser) {
-        String idMovie = idPhim;
-        String idU = idUser;
-        View view = getLayoutInflater().inflate(R.layout.component_cmt, null);
-
-        ArrayList<Comment> arrayCmt = new ArrayList<>();
-        CommentAdapter commentAdapter = new CommentAdapter(getApplicationContext(), arrayCmt);
-        RecyclerView rvListCmt = view.findViewById(R.id.rvListCmt);
+        arrayCmt = new ArrayList<>();
+        commentAdapter = new CommentAdapter(getApplicationContext(), arrayCmt);
+        rvListCmt = findViewById(R.id.rvListCmt);
         rvListCmt.setHasFixedSize(true);
         rvListCmt.setLayoutManager(new GridLayoutManager(getApplicationContext(), 1));
+    }
 
-
-        EditText etCmt = view.findViewById(R.id.etCmt);
-        ImageButton ibSendCmt = view.findViewById(R.id.ibSendCmt);
-
+    public void getComment(String idMovie){
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Url.urlShowCmt + idMovie, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 if(response != null){
+                    commentAdapter.clear();
                     String idCmt = "";
                     String userName = "";
                     String content = "";
@@ -341,6 +322,31 @@ public class ThongTinPhimActivity extends AppCompatActivity {
             }
         });
         requestQueue.add(jsonArrayRequest);
+    }
+
+    public void openMenu(View view){
+        drlayout.openDrawer(GravityCompat.START);
+    }
+
+    public void goHome(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivities(new Intent[]{intent});
+    }
+
+    public void Search(View view){
+        Intent intent = new Intent(this, SearchActivity.class);
+        startActivities(new Intent[]{intent});
+    }
+
+    public void addComment(String idPhim, String idUser) {
+        String idMovie = idPhim;
+        String idU = idUser;
+        View view = getLayoutInflater().inflate(R.layout.component_cmt, null);
+
+        EditText etCmt = view.findViewById(R.id.etCmt);
+        ImageButton ibSendCmt = view.findViewById(R.id.ibSendCmt);
 
         ibSendCmt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -360,7 +366,7 @@ public class ThongTinPhimActivity extends AppCompatActivity {
 
     public void sendComment(String cmt, String idPhim, String idUser) {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.sendComment(idPhim, idUser, cmt), new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url.sendComment, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 if(response.contains("success")){

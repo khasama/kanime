@@ -5,18 +5,6 @@
     android:gravity="center"
     android:orientation="vertical"
     android:background="#3d3d3d">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="250dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/rvListCmt"/>
-        </LinearLayout>
-    </ScrollView>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
