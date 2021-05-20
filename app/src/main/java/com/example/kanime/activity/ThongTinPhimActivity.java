@@ -356,6 +356,7 @@ public class ThongTinPhimActivity extends AppCompatActivity {
                 String idUser = idU;
                 if(!cmt.isEmpty()){
                     sendComment(cmt, idPhim, idUser);
+                    etCmt.setText("");
                 }else {
                     Toast.makeText(ThongTinPhimActivity.this, "Vui lòng nhập đầy đủ !!!!", Toast.LENGTH_SHORT).show();
                 }
@@ -370,8 +371,7 @@ public class ThongTinPhimActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 if(response.contains("success")){
-                    llCmt.removeAllViews();
-                    addComment(idPhim, idUser);
+                    getComment(idPhim);
                 }else{
                     Toast.makeText(getApplicationContext(), "Đã xảy ra lỗi vui lòng thử lại sau !!!", Toast.LENGTH_SHORT).show();
                 }
