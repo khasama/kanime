@@ -14,7 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kanime"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.LogRegActivity"></activity>
+        <activity android:name=".activity.SplashScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.LogRegActivity" />
         <activity android:name=".activity.UserActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity
@@ -26,11 +33,6 @@
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
