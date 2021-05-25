@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         arrayMenulef.add(new MenuLeft("Trạng Thái", "https://img.icons8.com/ultraviolet/40/4a90e2/movie.png"));
         arrayMenulef.add(new MenuLeft("Năm Phát Hành", "https://img.icons8.com/ultraviolet/40/4a90e2/movie.png"));
         arrayMenulef.add(new MenuLeft("Thông Tin", "https://img.icons8.com/ultraviolet/40/4a90e2/gender-neutral-user.png"));
-
     }
 
     private void GetPhimMoi() {

@@ -8,13 +8,11 @@ import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.example.kanime.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
     ImageView ivLogo, ivGoTen, ivKame;
-    ProgressBar pbLoading;
     Animation LogoAnimation, KameAnimation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +32,34 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                ivGoTen.setImageResource(R.drawable.goten_2);
+                ivGoTen.setImageResource(R.drawable.goten_1);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        ivGoTen.setImageResource(R.drawable.goten_3);
-                        ivKame.setImageResource(R.drawable.kame);
-                        ivKame.setAnimation(KameAnimation);
+                        ivGoTen.setImageResource(R.drawable.goten_2);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ivGoTen.setImageResource(R.drawable.goten_3);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ivGoTen.setImageResource(R.drawable.goten_4);
+                                        ivKame.setImageResource(R.drawable.kame);
+                                        ivKame.setAnimation(KameAnimation);
+
+                                    }
+                                }, 1000);
+
+                            }
+                        }, 1000);
 
                     }
-                }, 2000);
+                }, 1000);
             }
-        }, 2000);
+        }, 3000);
+
+
 
 
 
@@ -56,6 +70,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 startActivities(new Intent[]{intent});
                 finish();
             }
-        }, 5500);
+        }, 7500);
     }
 }
