@@ -14,6 +14,7 @@ public class Url {
     public static String urlLogin = domain + "api/anime/login.php";
     public static String urlShowCmt = domain + "api/anime/show_cmt.php?idPhim=";
     public static String sendComment = domain + "api/anime/send_cmt.php";
+    public static String urlUser = domain + "api/anime/user.php?idUser=";
 
 
     public static String GetAllEp(String idPhim, String idServer){

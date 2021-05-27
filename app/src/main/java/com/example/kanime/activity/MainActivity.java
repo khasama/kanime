@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                             startActivities(new Intent[]{intent});
                         }else{
                             Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                            intent.putExtra("idUser", savedData);
                             startActivities(new Intent[]{intent});
                         }
                         break;

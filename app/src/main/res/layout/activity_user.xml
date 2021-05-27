@@ -14,15 +14,15 @@
             android:id="@+id/rlUser"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="#dfdfdf"
+            android:background="@drawable/bg_user"
             android:padding="7dp">
 
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/back_icon"
-                android:id="@+id/iBBack"
+                android:id="@+id/ibBack"
                 android:background="#3f3f3f"
                 android:padding="5dp"/>
 
@@ -43,11 +43,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/tvEmail"
                 android:layout_marginStart="10dp"
-                android:layout_marginBottom="35dp"
+                android:layout_marginBottom="25dp"
                 android:layout_toEndOf="@+id/ivAvatar"
                 android:text="khavl741953"
                 android:textColor="#000"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tvEmail"
@@ -55,11 +55,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="10dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="45dp"
                 android:layout_toEndOf="@+id/ivAvatar"
                 android:text="khavl741953@gmail.com"
                 android:textColor="#000"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
         </RelativeLayout>
 
         <LinearLayout
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:text="Thông tin"
                 android:textColor="#0ff"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,17 +86,19 @@
                 android:layout_marginTop="5dp">
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="4"
+                    android:layout_weight="3"
                     android:layout_height="wrap_content"
                     android:text="Tài khoản: "
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textColor="#0ff"/>
+
                 <EditText
-                    android:layout_width="0dp"
-                    android:layout_weight="8"
-                    android:background="@drawable/bg_cmt"
                     android:id="@+id/etTaiKhoan"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:background="@drawable/bg_cmt"
+                    android:enabled="false" />
             </LinearLayout>
 
             <LinearLayout
@@ -109,17 +111,18 @@
                 android:layout_marginTop="10dp">
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="4"
+                    android:layout_weight="3"
                     android:layout_height="wrap_content"
                     android:text="Email: "
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textColor="#0ff"/>
                 <EditText
                     android:layout_width="0dp"
-                    android:layout_weight="8"
+                    android:layout_weight="9"
                     android:background="@drawable/bg_cmt"
                     android:id="@+id/etEmail"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -131,70 +134,54 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Đổi mật khẩu"
-                    android:textColor="#5DEA43"
-                    android:textSize="30sp" />
+                    android:textColor="#0ff"
+                    android:textSize="20sp" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="12"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:layout_marginTop="5dp">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="4"
-                        android:layout_height="wrap_content"
-                        android:text="Mật khẩu củ: "
-                        android:textSize="18sp"
-                        android:textColor="#5DEA43"/>
+                    android:orientation="vertical"
+                    android:padding="10dp">
                     <EditText
-                        android:layout_width="0dp"
-                        android:layout_weight="8"
+                        android:layout_width="match_parent"
                         android:background="@drawable/bg_cmt"
                         android:password="true"
                         android:id="@+id/etOldPass"
+                        android:hint="Nhập mật khẩu cũ"
                         android:layout_height="wrap_content"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="12"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:layout_marginTop="10dp">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="4"
-                        android:layout_height="wrap_content"
-                        android:text="Mật khẩu mới: "
-                        android:textSize="18sp"
-                        android:textColor="#5DEA43"/>
                     <EditText
-                        android:layout_width="0dp"
-                        android:layout_weight="8"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/bg_cmt"
-                        android:id="@+id/etNewPass"
                         android:password="true"
+                        android:id="@+id/etNewPass"
+                        android:hint="Nhập mật khẩu mới"
+                        android:layout_height="wrap_content"/>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_cmt"
+                        android:password="true"
+                        android:id="@+id/etReNewPass"
+                        android:hint="Nhập lại mật khẩu mới"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
-
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Đổi"
                     android:id="@+id/btnChangePass"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"/>
+                    android:backgroundTint="#fff"
+                    android:textAllCaps="false"
+                    android:textColor="#000"/>
             </LinearLayout>
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/logout_icon"/>
+                android:src="@drawable/logout_icon"
+                android:id="@+id/ibLogout"/>
 
         </LinearLayout>
 
