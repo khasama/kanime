@@ -8,12 +8,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.MediaController;
@@ -58,6 +61,9 @@ public class XemPhimActivity extends AppCompatActivity {
     EpisodeAdapter episodeAdapter;
     ArrayList<Server> arrayServer;
     ServerAdapter serverAdapter;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +72,8 @@ public class XemPhimActivity extends AppCompatActivity {
         if(CheckConnect.haveNetworkConnection(getApplicationContext())){
             GetMenuLeft();
             GetInfoEpisode();
+            initPreferences();
+            MenuClick();
         }else{
             CheckConnect.Thongbao(getApplicationContext(), "Kiểm tra lại kết nối!!!");
             finish();
@@ -114,6 +122,11 @@ public class XemPhimActivity extends AppCompatActivity {
             });
             requestQueue.add(jsonArrayRequest);
         }
+    }
+
+    private void initPreferences() {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPreferences.edit();
     }
 
     private void GetMenuLeft() {
@@ -235,5 +248,43 @@ public class XemPhimActivity extends AppCompatActivity {
     public void Search(View view){
         Intent intent = new Intent(this, SearchActivity.class);
         startActivities(new Intent[]{intent});
+    }
+
+    private void MenuClick() {
+
+        lvMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = null;
+                switch (position){
+                    case 0:
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivities(new Intent[]{intent});
+                        break;
+                    case 1:
+                        drlayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case 2:
+                        drlayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case 3:
+                        drlayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case 4:
+                        String savedData = sharedPreferences.getString("idUser", "");
+                        if(savedData.length() == 0 ){
+                            intent = new Intent(getApplicationContext(), LogRegActivity.class);
+                            startActivities(new Intent[]{intent});
+                        }else{
+                            intent = new Intent(getApplicationContext(), UserActivity.class);
+                            intent.putExtra("idUser", savedData);
+                            startActivities(new Intent[]{intent});
+                        }
+                        break;
+                }
+            }
+        });
     }
 }

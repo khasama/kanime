@@ -2,10 +2,12 @@ package com.example.kanime.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -41,6 +43,31 @@ public class UserActivity extends AppCompatActivity {
         initPreferences();
         anhXa();
         init();
+        clickAction();
+    }
+
+    private void clickAction() {
+        ibLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.clear();
+                editor.commit();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivities(new Intent[]{intent});
+            }
+        });
+
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivities(new Intent[]{intent});
+            }
+        });
     }
 
     private void initPreferences() {
@@ -98,5 +125,8 @@ public class UserActivity extends AppCompatActivity {
         ivAvatar = findViewById(R.id.ivAvatar);
         etTaiKhoa = findViewById(R.id.etTaiKhoan);
         etEmail = findViewById(R.id.etEmail);
+
+        ibLogout = findViewById(R.id.ibLogout);
+        ibBack = findViewById(R.id.ibBack);
     }
 }

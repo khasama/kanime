@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -89,6 +90,7 @@ public class ThongTinPhimActivity extends AppCompatActivity {
         if(CheckConnect.haveNetworkConnection(getApplicationContext())){
             GetMenuLeft();
             GetInfo();
+            MenuClick();
         }else{
             CheckConnect.Thongbao(getApplicationContext(), "Kiểm tra lại kết nối!!!");
             finish();
@@ -391,6 +393,44 @@ public class ThongTinPhimActivity extends AppCompatActivity {
             }
         };
         requestQueue.add(stringRequest);
+    }
+
+    private void MenuClick() {
+
+        lvMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = null;
+                switch (position){
+                    case 0:
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivities(new Intent[]{intent});
+                        break;
+                    case 1:
+                        drlayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case 2:
+                        drlayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case 3:
+                        drlayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case 4:
+                        String savedData = sharedPreferences.getString("idUser", "");
+                        if(savedData.length() == 0 ){
+                            intent = new Intent(getApplicationContext(), LogRegActivity.class);
+                            startActivities(new Intent[]{intent});
+                        }else{
+                            intent = new Intent(getApplicationContext(), UserActivity.class);
+                            intent.putExtra("idUser", savedData);
+                            startActivities(new Intent[]{intent});
+                        }
+                        break;
+                }
+            }
+        });
     }
 
 }
